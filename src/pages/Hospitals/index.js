@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, ImageBackground} from 'react-native';
 import {ILHospitalBG} from '../../assets/illustration';
 import {fonts, colors} from '../../utils';
 import {ListHospital} from '../../components';
+import {DummyHospital1, DummyHospital2, DummyHospital3} from '../../assets';
 
 const Hospitals = () => {
   return (
@@ -12,9 +13,24 @@ const Hospitals = () => {
         <Text style={styles.desc}>3 tersedia</Text>
       </ImageBackground>
       <View style={styles.content}>
-        <ListHospital />
-        <ListHospital />
-        <ListHospital />
+        <ListHospital
+          type="Rumah Sakit"
+          name="Citra Bunga Merdeka"
+          address="Jln. Surya Sejahtera"
+          pic={DummyHospital1}
+        />
+        <ListHospital
+          type="Rumah Sakit Anak"
+          name="Happy Family & Kids "
+          address="Jln. Surya Sejahtera"
+          pic={DummyHospital2}
+        />
+        <ListHospital
+          type="Rumah Sakit Jiwa"
+          name="Tingkatan Paling Atas"
+          address="Jln. Surya Sejahtera"
+          pic={DummyHospital3}
+        />
       </View>
     </View>
   );
