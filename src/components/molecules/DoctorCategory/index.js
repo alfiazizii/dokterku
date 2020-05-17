@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from 'react-native';
 const DoctorCategory = () => {
   return (
     <View>
-      <Text>DoctorCategory Component</Text>
+      <Text>Doctor Category Component</Text>
     </View>
   );
 };
