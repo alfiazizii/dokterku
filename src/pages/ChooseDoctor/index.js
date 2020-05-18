@@ -10,15 +10,20 @@ import {
 import {Header, ListDoctor} from '../../components';
 import {colors} from '../../utils';
 
-const ChooseDoctor = () => {
+const ChooseDoctor = ({navigation}) => {
   return (
     <View style={styles.page}>
-      <Header type="dark" title="Pilih Dokter Anak" />
+      <Header
+        type="dark"
+        title="Pilih Dokter Anak"
+        onPress={() => navigation.goBack()}
+      />
       <ListDoctor
         type="next"
         profile={DummyDoctor4}
         name="Alexander Jannie"
         desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         type="next"

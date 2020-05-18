@@ -12,6 +12,7 @@ import {
   Splash,
   UploadPhoto,
   ChooseDoctor,
+  Chatting,
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -63,6 +64,11 @@ const Router = () => {
       <Stack.Screen
         name="ChooseDoctor"
         component={ChooseDoctor}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Chatting"
+        component={Chatting}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
