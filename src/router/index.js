@@ -11,6 +11,7 @@ import {
   Register,
   Splash,
   UploadPhoto,
+  ChooseDoctor,
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -57,6 +58,11 @@ const Router = () => {
       <Stack.Screen
         name="MainApp"
         component={MainApp}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ChooseDoctor"
+        component={ChooseDoctor}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
