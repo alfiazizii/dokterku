@@ -6,32 +6,32 @@ import {colors} from '../../utils';
 const UserProfile = ({navigation}) => {
   return (
     <View style={styles.page}>
-      <Header title="Profile" />
+      <Header title="Profile" onPress={() => navigation.goBack()} />
       <Gap height={10} />
-      <Profile />
+      <Profile name="Shayna Melinda" desc="Product Designer" />
       <Gap height={14} />
       <List
         name="Edit Profile"
-        desc="Last Update Yesterday"
+        desc="Last Updated Yesterday"
         type="next"
         icon="edit-profile"
         onPress={() => navigation.navigate('UpdateProfile')}
       />
       <List
-        name="Edit Profile"
-        desc="Last Update Yesterday"
+        name="Language"
+        desc="Available 12 languages"
         type="next"
         icon="language"
       />
       <List
-        name="Edit Profile"
-        desc="Last Update Yesterday"
+        name="Give Us Rate"
+        desc="On Google Play Store"
         type="next"
         icon="rate"
       />
       <List
-        name="Edit Profile"
-        desc="Last Update Yesterday"
+        name="Help Center"
+        desc="Read our guidlines"
         type="next"
         icon="help"
       />
