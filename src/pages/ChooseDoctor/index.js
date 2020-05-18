@@ -7,7 +7,7 @@ import {
   DummyDoctor7,
   DummyDoctor8,
 } from '../../assets';
-import {Header, ListDoctor} from '../../components';
+import {Header, List} from '../../components';
 import {colors} from '../../utils';
 
 const ChooseDoctor = ({navigation}) => {
@@ -18,32 +18,32 @@ const ChooseDoctor = ({navigation}) => {
         title="Pilih Dokter Anak"
         onPress={() => navigation.goBack()}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor4}
         name="Alexander Jannie"
         desc="Wanita"
         onPress={() => navigation.navigate('Chatting')}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor5}
         name="Liu Yue Tian Park"
         desc="Wanita"
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor6}
         name="John McParker Steve"
         desc="Pria"
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor7}
         name="Putri Hayza"
         desc="Wanita"
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor8}
         name="James Rivilla"
