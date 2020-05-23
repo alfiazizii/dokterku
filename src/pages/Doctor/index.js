@@ -7,7 +7,7 @@ import {
   NewsItem,
   Gap,
 } from '../../components';
-import {fonts, colors} from '../../utils';
+import {fonts, colors, getData} from '../../utils';
 import {
   JSONCategoryDoctor,
   DummyDoctor1,
