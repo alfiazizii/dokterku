@@ -15,7 +15,6 @@ const UploadPhoto = ({navigation, route}) => {
     ImagePicker.launchImageLibrary(
       {quality: 0.5, maxWidth: 200, maxHeight: 200},
       response => {
-        console.log('response: ', response);
         if (response.didCancel || response.error) {
           showError('oops, sepertinya anda tidak memilih foto nya?');
         } else {

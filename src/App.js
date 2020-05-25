@@ -8,7 +8,6 @@ import {Loading} from './components';
 
 const MainApp = () => {
   const stateGlobal = useSelector(state => state);
-  console.log('state global: ', stateGlobal);
 
   return (
     <>
