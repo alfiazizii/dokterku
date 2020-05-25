@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {ILLogo} from '../../assets';
 import {Input, Link, Button, Gap, Loading} from '../../components';
-import {colors, fonts, useForm, storeData} from '../../utils';
+import {colors, fonts, useForm, storeData, showError} from '../../utils';
 import {Firebase} from '../../config';
-import {showMessage} from 'react-native-flash-message';
 import {useDispatch} from 'react-redux';
 
 const Login = ({navigation}) => {
@@ -16,13 +15,11 @@ const Login = ({navigation}) => {
     Firebase.auth()
       .signInWithEmailAndPassword(form.email, form.password)
       .then(res => {
-        console.log('success: ', res);
         dispatch({type: 'SET_LOADING', value: false});
         Firebase.database()
           .ref(`users/${res.user.uid}/`)
           .once('value')
           .then(resDB => {
-            console.log('data user: ', resDB.val());
             if (resDB.val()) {
               storeData('user', resDB.val());
               navigation.replace('MainApp');
@@ -30,18 +27,11 @@ const Login = ({navigation}) => {
           });
       })
       .catch(err => {
-        console.log('error: ', err);
         dispatch({type: 'SET_LOADING', value: false});
-        showMessage({
-          message: err.message,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(err.message);
       });
   };
 
-  const showLoadingTemp = () => {};
   return (
     <View style={styles.page}>
       <ScrollView showsVerticalScrollIndicator={false}>
