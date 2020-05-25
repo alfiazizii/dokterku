@@ -9,7 +9,6 @@ const Profile = ({name, desc, isRemove, photo, onPress}) => {
       {!isRemove && (
         <View style={styles.borderProfile}>
           <Image source={photo} style={styles.avatar} />
-          {isRemove && <IconRemovePhoto style={styles.removePhoto} />}
         </View>
       )}
       {isRemove && (
