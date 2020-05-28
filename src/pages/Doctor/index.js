@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {
   HomeProfile,
@@ -7,15 +7,37 @@ import {
   NewsItem,
   Gap,
 } from '../../components';
-import {fonts, colors, getData} from '../../utils';
+import {fonts, colors} from '../../utils';
 import {
   JSONCategoryDoctor,
   DummyDoctor1,
   DummyDoctor2,
   DummyDoctor3,
 } from '../../assets';
+import newsAPI from '../../apis/index';
 
 const Doctor = ({navigation}) => {
+  const [news, setNews] = useState([]);
+  useEffect(() => {
+    getNewsFromAPI();
+  }, []);
+
+  const getNewsFromAPI = () => {
+    newsAPI
+      .get(
+        'top-headlines?country=id&category=health&apiKey=f41c6366339641e88931853baa5ccbe1',
+      )
+      .then(res => {
+        setNews(res.data.articles);
+      })
+      .catch(error => {
+        showError(error.message);
+      });
+  };
+
+  if (!news) {
+    return null;
+  }
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -66,9 +88,9 @@ const Doctor = ({navigation}) => {
             />
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
+          {news.map((item, key) => {
+            return <NewsItem key={key} item={item} />;
+          })}
           <Gap height={30} />
         </ScrollView>
       </View>
