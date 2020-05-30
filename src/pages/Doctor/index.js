@@ -8,17 +8,15 @@ import {
   Gap,
 } from '../../components';
 import {fonts, colors, newsAPI} from '../../utils';
-import {
-  JSONCategoryDoctor,
-  DummyDoctor1,
-  DummyDoctor2,
-  DummyDoctor3,
-} from '../../assets';
+import {DummyDoctor1, DummyDoctor2, DummyDoctor3} from '../../assets';
+import {Firebase} from '../../config';
 
 const Doctor = ({navigation}) => {
   const [news, setNews] = useState([]);
+  const [categoryDoctor, setCategoryDoctor] = useState([]);
   useEffect(() => {
     getNewsFromAPI();
+    getCategoryDoctor();
   }, []);
 
   const getNewsFromAPI = () => {
@@ -37,6 +35,21 @@ const Doctor = ({navigation}) => {
   if (!news) {
     return null;
   }
+  const getCategoryDoctor = () => {
+    Firebase.database()
+      .ref('category_doctor/')
+      .once('value')
+      .then(res => {
+        console.log('category doctor: ', res.val());
+        if (res.val()) {
+          setCategoryDoctor(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>
@@ -52,7 +65,7 @@ const Doctor = ({navigation}) => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={32} />
-                {JSONCategoryDoctor.data.map(item => {
+                {categoryDoctor.map(item => {
                   return (
                     <DoctorCategory
                       key={item.id}
