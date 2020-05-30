@@ -16,6 +16,7 @@ import {
   UserProfile,
   UpdateProfile,
   DoctorProfile,
+  News,
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -87,6 +88,11 @@ const Router = () => {
       <Stack.Screen
         name="DoctorProfile"
         component={DoctorProfile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="News"
+        component={News}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
