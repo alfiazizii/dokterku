@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     marginTop: 2,
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
   removePhoto: {
     position: 'absolute',
