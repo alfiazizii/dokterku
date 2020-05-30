@@ -1,10 +1,55 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {Header, ChatItem, InputChat} from '../../components';
-import {fonts, colors} from '../../utils';
+import {fonts, colors, getData, showError} from '../../utils';
+import {Firebase} from '../../config';
 
 const Chatting = ({navigation, route}) => {
   const dataDoctor = route.params;
+  const [chatContent, setChatContent] = useState('');
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getData('user').then(res => {
+      console.log('user login: ', res);
+      setUser(res);
+    });
+  }, []);
+
+  const chatSend = () => {
+    const today = new Date();
+    const hour = today.getHours();
+    const minutes = today.getMinutes();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+    const data = {
+      sendBy: user.uid,
+      chatDate: new Date().getTime(),
+      chatTime: `${hour}:${minutes} ${hour > 12 ? 'PM' : 'AM'}`,
+      chatContent: chatContent,
+    };
+    console.log('data untuk di kirim: ', data);
+    console.log(
+      'url firebase: ',
+      `chatting/${user.uid}_${
+        dataDoctor.data.uid
+      }/allChat/${year}-${month}-${date}`,
+    );
+    Firebase.database()
+      .ref(
+        `chatting/${user.uid}_${
+          dataDoctor.data.uid
+        }/allChat/${year}-${month}-${date}`,
+      )
+      .push(data)
+      .then(() => {
+        setChatContent('');
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  };
   return (
     <View style={styles.page}>
       <Header
@@ -23,9 +68,9 @@ const Chatting = ({navigation, route}) => {
         </ScrollView>
       </View>
       <InputChat
-        value=""
-        onChangeText={() => alert('Hello')}
-        onButtonPress={() => alert('tertekan')}
+        value={chatContent}
+        onChangeText={value => setChatContent(value)}
+        onButtonPress={chatSend}
       />
     </View>
   );
