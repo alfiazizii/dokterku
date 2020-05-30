@@ -11,7 +11,6 @@ import Chatting from './Chatting';
 import UserProfile from './UserProfile';
 import UpdateProfile from './UpdateProfile';
 import DoctorProfile from './DoctorProfile';
-import News from './News';
 
 export {
   Splash,
@@ -27,5 +26,4 @@ export {
   UserProfile,
   UpdateProfile,
   DoctorProfile,
-  News,
 };
