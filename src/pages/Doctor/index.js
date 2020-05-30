@@ -7,14 +7,13 @@ import {
   NewsItem,
   Gap,
 } from '../../components';
-import {fonts, colors} from '../../utils';
+import {fonts, colors, newsAPI} from '../../utils';
 import {
   JSONCategoryDoctor,
   DummyDoctor1,
   DummyDoctor2,
   DummyDoctor3,
 } from '../../assets';
-import newsAPI from '../../apis/index';
 
 const Doctor = ({navigation}) => {
   const [news, setNews] = useState([]);
@@ -27,7 +26,7 @@ const Doctor = ({navigation}) => {
       .get(
         'top-headlines?country=id&category=health&apiKey=f41c6366339641e88931853baa5ccbe1',
       )
-      .then(res => {
+      .then(async res => {
         setNews(res.data.articles);
       })
       .catch(error => {
