@@ -14,6 +14,7 @@ const News = ({navigation, route}) => {
         }}
         startInLoadingState
         scalesPageToFit
+        javaScriptEnabled={false}
         style={{flex: 1}}
       />
     </View>
