@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {
   DummyDoctor4,
@@ -9,46 +9,55 @@ import {
 } from '../../assets';
 import {Header, List} from '../../components';
 import {colors} from '../../utils';
+import {Firebase} from '../../config';
 
-const ChooseDoctor = ({navigation}) => {
+const ChooseDoctor = ({navigation, route}) => {
+  const [listDoctor, setListDoctor] = useState([]);
+  const itemCategory = route.params;
+  useEffect(() => {
+    callDoctorByCategory(itemCategory.category);
+  }, []);
+
+  const callDoctorByCategory = category => {
+    Firebase.database()
+      .ref('doctors/')
+      .orderByChild('category')
+      .equalTo(category)
+      .once('value')
+      .then(res => {
+        console.log('data list doctor: ', res.val());
+        if (res.val()) {
+          const oldData = res.val();
+          const data = [];
+          Object.keys(oldData).map(item => {
+            data.push({
+              id: item,
+              data: oldData[item],
+            });
+          });
+          setListDoctor(data);
+        }
+      });
+  };
   return (
     <View style={styles.page}>
       <Header
         type="dark"
-        title="Pilih Dokter Anak"
+        title={`Pilih ${itemCategory.category}`}
         onPress={() => navigation.goBack()}
       />
-      <List
-        type="next"
-        profile={DummyDoctor4}
-        name="Alexander Jannie"
-        desc="Wanita"
-        onPress={() => navigation.navigate('Chatting')}
-      />
-      <List
-        type="next"
-        profile={DummyDoctor5}
-        name="Liu Yue Tian Park"
-        desc="Wanita"
-      />
-      <List
-        type="next"
-        profile={DummyDoctor6}
-        name="John McParker Steve"
-        desc="Pria"
-      />
-      <List
-        type="next"
-        profile={DummyDoctor7}
-        name="Putri Hayza"
-        desc="Wanita"
-      />
-      <List
-        type="next"
-        profile={DummyDoctor8}
-        name="James Rivilla"
-        desc="Pria"
-      />
+      {listDoctor.map(doctor => {
+        return (
+          <List
+            key={doctor.id}
+            type="next"
+            profile={{uri: doctor.data.photo}}
+            name={doctor.data.fullName}
+            desc={doctor.data.gender}
+            onPress={() => navigation.navigate('Chatting')}
+          />
+        );
+      })}
     </View>
   );
 };
