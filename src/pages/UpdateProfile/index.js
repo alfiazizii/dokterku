@@ -59,12 +59,16 @@ const UpdateProfile = ({navigation}) => {
       .ref(`users/${profile.uid}/`)
       .update(data)
       .then(() => {
-        storeData('user', data).then(() => {
-          navigation.replace('MainApp');
-        });
+        storeData('user', data)
+          .then(() => {
+            navigation.replace('MainApp');
+          })
+          .catch(() => {
+            showError('Terjadi Masalah');
+          });
       })
-      .catch(() => {
-        showError('Terjadi Masalah');
+      .catch(err => {
+        showError(err.message);
       });
   };
 

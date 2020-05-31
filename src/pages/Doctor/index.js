@@ -7,18 +7,36 @@ import {
   NewsItem,
   Gap,
 } from '../../components';
-import {fonts, colors, newsAPI} from '../../utils';
+import {fonts, colors, newsAPI, getData, showError} from '../../utils';
 import {Firebase} from '../../config';
+import {ILNullPhoto} from '../../assets';
 
 const Doctor = ({navigation}) => {
   const [news, setNews] = useState([]);
   const [categoryDoctor, setCategoryDoctor] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [profile, setProfile] = useState({
+    photo: ILNullPhoto,
+    fullName: '',
+    profession: '',
+  });
+
   useEffect(() => {
     getNewsFromAPI();
     getCategoryDoctor();
     getTopRatedDoctors();
-  }, []);
+    navigation.addListener('focus', () => {
+      getUserData();
+    });
+  }, [navigation]);
+
+  const getUserData = () => {
+    getData('user').then(res => {
+      const data = res;
+      data.photo = res?.photo?.length > 1 ? {uri: res.photo} : ILNullPhoto;
+      setProfile(res);
+    });
+  };
 
   const getNewsFromAPI = () => {
     newsAPI
@@ -83,7 +101,10 @@ const Doctor = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperSection}>
             <Gap height={30} />
-            <HomeProfile onPress={() => navigation.navigate('UserProfile')} />
+            <HomeProfile
+              profile={profile}
+              onPress={() => navigation.navigate('UserProfile', profile)}
+            />
             <Text style={styles.welcome}>
               Mau konsultasi dengan siapa hari ini?
             </Text>
