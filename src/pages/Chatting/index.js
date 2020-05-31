@@ -24,7 +24,6 @@ const Chatting = ({navigation, route}) => {
     Firebase.database()
       .ref(urlFirebase)
       .on('value', snapshot => {
-        console.log('data chat: ', snapshot.val());
         if (snapshot.val()) {
           const dataSnapshot = snapshot.val();
           const allDataChat = [];
@@ -44,7 +43,6 @@ const Chatting = ({navigation, route}) => {
               data: newDataChat,
             });
           });
-          console.log('all data chat: ', allDataChat);
           setChatData(allDataChat);
         }
       });

@@ -21,7 +21,6 @@ const Messages = ({navigation}) => {
         const promises = await Object.keys(oldData).map(async key => {
           const urlUidDoctor = `doctors/${oldData[key].uidPartner}`;
           const detailDoctor = await rootDB.child(urlUidDoctor).once('value');
-          console.log('detail doctors: ', detailDoctor.val());
           data.push({
             id: key,
             detailDoctor: detailDoctor.val(),
@@ -44,13 +43,17 @@ const Messages = ({navigation}) => {
       <View style={styles.content}>
         <Text style={styles.title}>Messages</Text>
         {historyChat.map(chat => {
+          const dataDoctor = {
+            id: chat.detailDoctor.uid,
+            data: chat.detailDoctor,
+          };
           return (
             <List
               key={chat.id}
               profile={{uri: chat.detailDoctor.photo}}
               name={chat.detailDoctor.fullName}
               desc={chat.lastContentChat}
-              onPress={() => navigation.navigate('Chatting')}
+              onPress={() => navigation.navigate('Chatting', dataDoctor)}
             />
           );
         })}

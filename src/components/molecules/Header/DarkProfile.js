@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
     marginTop: 6,
     textAlign: 'center',
     color: colors.text.subTitle,
+    textTransform: 'capitalize',
   },
 });
