@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {fonts, colors} from '../../../utils';
-import {DummyDoctor5} from '../../../assets';
 
 const Other = ({text, date, photo}) => {
   return (
