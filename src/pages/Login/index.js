@@ -42,6 +42,9 @@ const Login = ({navigation}) => {
           label="Email Address"
           value={form.email}
           onChangeText={value => setForm('email', value)}
+          keyboardType="email-address"
+          returnKeyType="next"
+          autoCapitalize="none"
         />
         <Gap height={24} />
         <Input
@@ -49,6 +52,8 @@ const Login = ({navigation}) => {
           value={form.password}
           onChangeText={value => setForm('password', value)}
           secureTextEntry
+          returnKeyType="go"
+          autoCapitalize="none"
         />
         <Gap height={10} />
         <Link title="Forgot My Password" size={12} />

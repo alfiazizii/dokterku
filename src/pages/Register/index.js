@@ -49,18 +49,23 @@ const Register = ({navigation}) => {
             label="Full Name"
             value={form.fullName}
             onChangeText={value => setForm('fullName', value)}
+            returnKeyType="next"
           />
           <Gap height={24} />
           <Input
             label="Pekerjaan"
             value={form.profession}
             onChangeText={value => setForm('profession', value)}
+            returnKeyType="next"
           />
           <Gap height={24} />
           <Input
             label="Email"
             value={form.email}
             onChangeText={value => setForm('email', value)}
+            keyboardType="email-address"
+            returnKeyType="next"
+            autoCapitalize="none"
           />
           <Gap height={24} />
           <Input
@@ -68,6 +73,8 @@ const Register = ({navigation}) => {
             value={form.password}
             onChangeText={value => setForm('password', value)}
             secureTextEntry
+            returnKeyType="go"
+            autoCapitalize="none"
           />
           <Gap height={40} />
           <Button title="Continue" onPress={onContinue} />
